@@ -1,32 +1,36 @@
+using System.Collections;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
-using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float airControl;
-    private float minAirControl = 0.2f;
-    private float maxAirControl = 1f;
+    [SerializeField] private float minAirControl;
+    [SerializeField] private float maxAirControl;
 
-    private Vector2 moveDirection;
-    
     [Header("Jump")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float doubleJumpModifier;
     [SerializeField] private float ascendingJumpModifier;
     [SerializeField] private float descendingJumpModifier;
+    [SerializeField] private float ascendingThreshold;
     [SerializeField] private Transform feet;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundDetectionRadius = 0.25f;
-    
-    
+    [SerializeField] private float groundDetectionRadius;
+
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashCooldown;
+
+    [Header("Debug")]
     [SerializeField] private bool isGrounded;
-    private bool hasJumped;
     [SerializeField] private bool canDoubleJump;
+    [SerializeField] private bool isDashing;
 
     private Rigidbody2D rb;
+    private Vector2 moveDirection;
+
+    private bool hasJumped;
 
     private void Awake()
     {
@@ -36,20 +40,66 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        float hInput = Input.GetAxisRaw("Horizontal");
-        moveDirection = new Vector2(hInput, rb.linearVelocity.y);
+        ReadInput();
+        FlipCharacter();
+        CheckIsGrounded();
+        HandleJumpInput();
+        HandleDashInput();
+    }
 
-        if (hInput > 0)
+    private void FixedUpdate()
+    {
+        if (!isDashing)
+        {
+            Move();
+        }
+    }
+
+    private void ReadInput()
+    {
+        float hInput = Input.GetAxisRaw("Horizontal");
+        moveDirection = new Vector2(hInput, 0f);
+    }
+
+    private void FlipCharacter()
+    {
+        if (moveDirection.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (hInput < 0)
+        else if (moveDirection.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
+    }
 
-        CheckIsGrounded();
-        
+    private void Move()
+    {
+        float targetXVelocity = moveDirection.x * moveSpeed;
+
+        if (isGrounded)
+        {
+            rb.linearVelocity = new Vector2(targetXVelocity, rb.linearVelocity.y);
+        }
+        else
+        {
+            float currentAirControl = targetXVelocity != 0 ? maxAirControl : minAirControl;
+
+            float newXVelocity = Mathf.MoveTowards(rb.linearVelocity.x, targetXVelocity, currentAirControl);
+
+            rb.linearVelocity = new Vector2(newXVelocity, rb.linearVelocity.y);
+        }
+    }
+
+    private void CheckIsGrounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(feet.position, groundDetectionRadius, groundLayer);
+
+        canDoubleJump = !isGrounded && hasJumped;
+    }
+
+    private void HandleJumpInput()
+    {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
@@ -61,59 +111,55 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
-    private void Move()
-    {
-        float targetXVelocity = moveDirection.x * moveSpeed;
-        airControl = targetXVelocity != 0 ? airControl = maxAirControl : airControl = minAirControl;
-
-        if (isGrounded)
-        {
-            rb.linearVelocity = new Vector2(targetXVelocity, rb.linearVelocity.y);
-        }
-        else
-        {
-            float newXVelocity = Mathf.MoveTowards(rb.linearVelocity.x, targetXVelocity, airControl);
-
-            rb.linearVelocity = new Vector2(newXVelocity, rb.linearVelocity.y);
-        }
-        
-    }
-
-    private void CheckIsGrounded()
-    {
-        isGrounded = Physics2D.OverlapCircle(feet.position, groundDetectionRadius, groundLayer);
-
-        canDoubleJump = (!isGrounded && hasJumped) ? canDoubleJump = true : canDoubleJump = false;
-    }
-
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
         hasJumped = true;
     }
 
     private void DoubleJump()
     {
-        if (rb.linearVelocity.y <= 2)
+        if (rb.linearVelocity.y <= ascendingThreshold)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
             doubleJumpModifier = descendingJumpModifier;
         }
-        else if (rb.linearVelocity.y > 2)
+        else
         {
             doubleJumpModifier = ascendingJumpModifier;
         }
-        
+
         rb.AddForce(Vector2.up * jumpForce * doubleJumpModifier, ForceMode2D.Impulse);
+
         doubleJumpModifier = descendingJumpModifier;
         hasJumped = false;
         canDoubleJump = false;
-        
+    }
+
+    private void HandleDashInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Dash();
+        }
+    }
+
+    private void Dash()
+    {
+        StartCoroutine(DashCoroutine());
+    }
+
+    private IEnumerator DashCoroutine()
+    {
+        isDashing = true;
+
+        rb.linearVelocity = new Vector2(transform.right.x * dashSpeed, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(dashCooldown);
+
+        isDashing = false;
     }
 
     private void OnDrawGizmos()
