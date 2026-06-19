@@ -1,9 +1,14 @@
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float airControl;
+    private float minAirControl = 0.2f;
+    private float maxAirControl = 1f;
 
     private Vector2 moveDirection;
     
@@ -34,6 +39,15 @@ public class PlayerMovement : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         moveDirection = new Vector2(hInput, rb.linearVelocity.y);
 
+        if (hInput > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (hInput < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+
         CheckIsGrounded();
         
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -49,7 +63,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, rb.linearVelocity.y);
+        Move();
+    }
+
+    private void Move()
+    {
+        float targetXVelocity = moveDirection.x * moveSpeed;
+        airControl = targetXVelocity != 0 ? airControl = maxAirControl : airControl = minAirControl;
+
+        if (isGrounded)
+        {
+            rb.linearVelocity = new Vector2(targetXVelocity, rb.linearVelocity.y);
+        }
+        else
+        {
+            float newXVelocity = Mathf.MoveTowards(rb.linearVelocity.x, targetXVelocity, airControl);
+
+            rb.linearVelocity = new Vector2(newXVelocity, rb.linearVelocity.y);
+        }
+        
     }
 
     private void CheckIsGrounded()
