@@ -161,6 +161,16 @@ public class PlayerMovement : MonoBehaviour
 
         isDashing = false;
     }
+    
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public bool GetIsDashing()
+    {
+        return isDashing;
+    }
 
     private void OnDrawGizmos()
     {
