@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 4601770693512220871}
   - component: {fileID: 866987352132186295}
   - component: {fileID: 3334657612813616984}
+  - component: {fileID: 2578369647538054215}
   - component: {fileID: 214878001084109207}
   - component: {fileID: 6507860931388238108}
   m_Layer: 8
@@ -85,11 +86,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ba2c16b4a7bd54ba410d54347eaa21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 5
+  maxHealth: 7
   playerHealthUI: {fileID: 0}
   animator: {fileID: 6337248273155209761}
   spriteRenderer: {fileID: 4154135398298692364}
-  damageFlashTime: 0.12
+  flashDelay: 1
+  flashTime: 0.12
   gameOverDelay: 1
 --- !u!114 &2822540237429827539
 MonoBehaviour:
@@ -135,9 +137,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   attackPoint: {fileID: 72959408965333801}
+  bowShootPoint: {fileID: 72959408965333801}
   animator: {fileID: 6337248273155209761}
-  attackRadius: 0.75
-  playerBaseDamage: 10
+  arrowPrefab: {fileID: 8599222805522169282, guid: 773411efc007a784e80edf5830392eb1, type: 3}
+  swordRadius: 0.7
+  swordDamage: 10
+  spearRadius: 1.2
+  spearDamage: 8
+  bowDamage: 5
   attackCooldown: 0.5
   damageDelay: 0.15
   enemyLayer:
@@ -179,6 +186,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a78237c0cc54441b4722cba3ea5a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+--- !u!114 &2578369647538054215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128697021361023608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405698d35e3d7b64bac0735f445bb650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPotionUser
+  damagePotionDuration: 20
 --- !u!50 &214878001084109207
 Rigidbody2D:
   serializedVersion: 5

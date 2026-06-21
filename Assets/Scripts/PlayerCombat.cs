@@ -5,13 +5,25 @@ public class PlayerCombat : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform attackPoint;
+    [SerializeField] private Transform bowShootPoint;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private GameObject hitEffectPrefab;
 
-    [Header("Attack")]
-    [SerializeField] private float attackRadius = 0.7f;
-    [SerializeField] private int playerBaseDamage = 5;
+    [Header("Sword")]
+    [SerializeField] private float swordRadius = 0.7f;
+    [SerializeField] private int swordDamage = 10;
+
+    [Header("Spear")]
+    [SerializeField] private float spearRadius = 1.2f;
+    [SerializeField] private int spearDamage = 8;
+
+    [Header("Bow")]
+    [SerializeField] private int bowDamage = 5;
+
+    [Header("General Attack")]
     [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float damageDelay = 0.5f;
+    [SerializeField] private float damageDelay = 0.15f;
     [SerializeField] private LayerMask enemyLayer;
 
     private bool canAttack = true;
@@ -32,27 +44,66 @@ public class PlayerCombat : MonoBehaviour
 
         yield return new WaitForSeconds(damageDelay);
 
-        PerformAttack();
+        WeaponType currentWeapon = GameManager.Instance.GetCurrentWeapon();
+
+        if (currentWeapon == WeaponType.Sword)
+        {
+            PerformMeleeAttack(swordRadius, swordDamage);
+        }
+        else if (currentWeapon == WeaponType.Spear)
+        {
+            PerformMeleeAttack(spearRadius, spearDamage);
+        }
+        else if (currentWeapon == WeaponType.Bow)
+        {
+            ShootArrow();
+        }
 
         yield return new WaitForSeconds(attackCooldown);
 
         canAttack = true;
     }
 
-    private void PerformAttack()
+    private void PerformMeleeAttack(float radius, int damage)
     {
-        Collider2D[] targetsHit = Physics2D.OverlapCircleAll(
-            attackPoint.position,
-            attackRadius,
-            enemyLayer);
+        int finalDamage = GetFinalDamage(damage);
+
+        Collider2D[] targetsHit = Physics2D.OverlapCircleAll(attackPoint.position, radius, enemyLayer);
 
         foreach (Collider2D target in targetsHit)
         {
             if (target.TryGetComponent(out IDamageable damageable))
             {
-                damageable.TakeDamage(playerBaseDamage);
+                damageable.TakeDamage(finalDamage);
+                Instantiate(hitEffectPrefab, target.transform.position, Quaternion.identity);
             }
         }
+    }
+
+    private void ShootArrow()
+    {
+        GameObject arrow = Instantiate(
+            arrowPrefab,
+            bowShootPoint.position,
+            bowShootPoint.rotation);
+
+        ArrowProjectile projectile = arrow.GetComponent<ArrowProjectile>();
+
+        int finalDamage = GetFinalDamage(bowDamage);
+        projectile.SetDamage(finalDamage);
+
+        float directionX = transform.rotation.y == 0 ? 1f : -1f;
+        projectile.SetDirection(directionX);
+    }
+
+    private int GetFinalDamage(int baseDamage)
+    {
+        if (GameManager.Instance.GetDamageBoostActive())
+        {
+            return baseDamage * 2;
+        }
+
+        return baseDamage;
     }
 
     private void OnDrawGizmosSelected()
@@ -60,6 +111,9 @@ public class PlayerCombat : MonoBehaviour
         if (attackPoint == null) return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+        Gizmos.DrawWireSphere(attackPoint.position, swordRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(attackPoint.position, spearRadius);
     }
 }

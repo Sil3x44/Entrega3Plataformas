@@ -18,7 +18,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite swordSprite;
     [SerializeField] private Sprite spearSprite;
     [SerializeField] private Sprite bowSprite;
+    
+    [Header("Potion Settings")]
+    [SerializeField] private int potionCost = 5;
+    [SerializeField] private int healthPotionHealAmount = 2;
+    [SerializeField] private float damagePotionDuration = 8f;
 
+    private bool damageBoostActive;
     private bool hasSword;
     private bool hasSpear;
     private bool hasBow;
@@ -136,6 +142,58 @@ public class GameManager : MonoBehaviour
     {
         damagePotions++;
         UpdateUI();
+    }
+    
+    public bool TryUseHealthPotion(PlayerHealth playerHealth)
+    {
+        if (healthPotions > 0)
+        {
+            healthPotions--;
+            playerHealth.Heal(healthPotionHealAmount);
+            UpdateUI();
+            return true;
+        }
+
+        if (coins >= potionCost)
+        {
+            coins -= potionCost;
+            healthPotions++;
+            UpdateUI();
+            return false;
+        }
+
+        return false;
+    }
+
+    public bool TryUseDamagePotion()
+    {
+        if (damagePotions > 0)
+        {
+            damagePotions--;
+            damageBoostActive = true;
+            UpdateUI();
+            return true;
+        }
+
+        if (coins >= potionCost)
+        {
+            coins -= potionCost;
+            damagePotions++;
+            UpdateUI();
+            return false;
+        }
+
+        return false;
+    }
+
+    public bool GetDamageBoostActive()
+    {
+        return damageBoostActive;
+    }
+
+    public void DisableDamageBoost()
+    {
+        damageBoostActive = false;
     }
 
     private void UpdateUI()

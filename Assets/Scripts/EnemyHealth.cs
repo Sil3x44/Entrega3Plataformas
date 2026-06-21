@@ -17,6 +17,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     [Header("Death")]
     [SerializeField] private float destroyDelay = 1f;
+    
+    [Header("Drops")]
+    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private int coinsToDrop = 0;
+    [SerializeField] private float dropRadius = 0.6f;
 
     private int currentHealth;
     private bool isDead;
@@ -54,6 +59,21 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         spriteRenderer.color = originalColor;
     }
 
+    private void DropCoins()
+    {
+        if (coinPrefab == null) return;
+
+        for (int i = 0; i < coinsToDrop; i++)
+        {
+            Vector3 randomOffset = Random.insideUnitCircle * dropRadius;
+
+            Instantiate(
+                coinPrefab,
+                transform.position + randomOffset,
+                Quaternion.identity);
+        }
+    }
+    
     private void Die()
     {
         isDead = true;
@@ -63,6 +83,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         animator.SetTrigger("Die");
 
+        DropCoins();
+        
         Destroy(gameObject, destroyDelay);
     }
 

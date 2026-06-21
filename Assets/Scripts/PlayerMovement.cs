@@ -123,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         hasJumped = true;
+        
+        AudioManager.Instance.PlayJumpSound();
     }
 
     private void DoubleJump()
@@ -143,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
         doubleJumpModifier = descendingJumpModifier;
         hasJumped = false;
         canDoubleJump = false;
+        
+        AudioManager.Instance.PlayDoubleJumpSound();
     }
 
     private void HandleDashInput()
