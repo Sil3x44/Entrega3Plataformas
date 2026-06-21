@@ -1803,6 +1803,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 400031757}
     m_Modifications:
+    - target: {fileID: 672007249922262640, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     - target: {fileID: 1969467977732280060, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
       propertyPath: m_Name
       value: HealthPotionPickup
@@ -16652,6 +16656,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 188900463222824980, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 188900463222824980, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 188900463222824980, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 1146984956737749054, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: player
       value: 
@@ -16674,7 +16690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.x
@@ -16682,7 +16698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.z
@@ -16694,11 +16710,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768450220554517239, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16876,6 +16896,10 @@ PrefabInstance:
       propertyPath: potionType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 672007249922262640, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     - target: {fileID: 1904058275531523267, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -20795,7 +20819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME OVER
+  m_text: VICTORY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c271a8ae19aa56469bd66f65425161f, type: 2}
   m_sharedMaterial: {fileID: -8268798048585993337, guid: 0c271a8ae19aa56469bd66f65425161f, type: 2}
@@ -20882,6 +20906,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 188900463222824980, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 188900463222824980, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 188900463222824980, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 1146984956737749054, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: player
       value: 
@@ -20904,7 +20940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.x
@@ -20912,7 +20948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalRotation.z
@@ -20924,11 +20960,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6574190277644812929, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6768450220554517239, guid: e9a47eb337000654f9a57a5f80e03cba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

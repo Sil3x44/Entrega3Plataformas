@@ -3858,6 +3858,10 @@ PrefabInstance:
       propertyPath: weaponType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8547783235181819593, guid: 81ab618bf1843b2439c745a02cb6c8cf, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22753,6 +22757,10 @@ PrefabInstance:
       propertyPath: potionType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 672007249922262640, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     - target: {fileID: 1374852675818720714, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -23801,6 +23809,10 @@ PrefabInstance:
       propertyPath: weaponType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8547783235181819593, guid: 81ab618bf1843b2439c745a02cb6c8cf, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25613,6 +25625,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 387906578}
     m_Modifications:
+    - target: {fileID: 672007249922262640, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     - target: {fileID: 1374852675818720714, guid: f9d5f5a45f5951d43a12574dff5fca58, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -25734,6 +25750,10 @@ PrefabInstance:
       propertyPath: weaponType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8547783235181819593, guid: 81ab618bf1843b2439c745a02cb6c8cf, type: 3}
+      propertyPath: collectEffectPrefab
+      value: 
+      objectReference: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -14,10 +14,7 @@ public class PotionPickup : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteractor player)
     {
-        if (collectEffectPrefab != null)
-        {
-            Instantiate(collectEffectPrefab, transform.position, Quaternion.identity);
-        }
+        Instantiate(collectEffectPrefab, transform.position, Quaternion.identity);
 
         if (potionType == PotionType.Health)
         {

@@ -64,10 +64,7 @@ public class BoarGoblinBoss : MonoBehaviour
 
         currentState = BossState.Patrol;
 
-        if (alertIcon != null)
-        {
-            alertIcon.SetActive(false);
-        }
+        alertIcon.SetActive(false);
 
         SelectRandomPatrolPoint();
     }
@@ -95,7 +92,6 @@ public class BoarGoblinBoss : MonoBehaviour
 
     private void CheckDetection()
     {
-        if (player == null) return;
         if (hasDetectedPlayer) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -110,15 +106,11 @@ public class BoarGoblinBoss : MonoBehaviour
 
     private void Patrol()
     {
-        if (patrolPoints.Length == 0) return;
-
         Transform targetPoint = patrolPoints[currentPatrolIndex];
 
         Vector2 direction = (targetPoint.position - transform.position).normalized;
 
-        rb.linearVelocity = new Vector2(
-            direction.x * patrolSpeed,
-            rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(direction.x * patrolSpeed, rb.linearVelocity.y);
 
         Flip(direction.x);
 
@@ -130,13 +122,6 @@ public class BoarGoblinBoss : MonoBehaviour
 
     private void SelectRandomPatrolPoint()
     {
-        if (patrolPoints.Length == 0) return;
-
-        if (patrolPoints.Length == 1)
-        {
-            currentPatrolIndex = 0;
-            return;
-        }
 
         int newIndex = Random.Range(0, patrolPoints.Length);
 
@@ -169,9 +154,7 @@ public class BoarGoblinBoss : MonoBehaviour
         {
             Vector2 direction = (player.position - transform.position).normalized;
 
-            rb.linearVelocity = new Vector2(
-                direction.x * chaseSpeed,
-                rb.linearVelocity.y);
+            rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
         }
     }
 
@@ -186,10 +169,7 @@ public class BoarGoblinBoss : MonoBehaviour
 
         yield return new WaitForSeconds(spearDamageDelay);
 
-        Collider2D[] targetsHit = Physics2D.OverlapCircleAll(
-            spearAttackPoint.position,
-            spearAttackRadius,
-            playerLayer);
+        Collider2D[] targetsHit = Physics2D.OverlapCircleAll(spearAttackPoint.position, spearAttackRadius, playerLayer);
 
         foreach (Collider2D target in targetsHit)
         {
@@ -213,9 +193,7 @@ public class BoarGoblinBoss : MonoBehaviour
 
         animator.SetBool("Charge", true);
 
-        rb.linearVelocity = new Vector2(
-            facingDirection * chargeSpeed,
-            rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(facingDirection * chargeSpeed, rb.linearVelocity.y);
 
         yield return new WaitForSeconds(chargeDuration);
 
