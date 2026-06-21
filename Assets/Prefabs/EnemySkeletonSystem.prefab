@@ -457,12 +457,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7126b1144f5d7544a828fad6423bd1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 10
+  maxHealth: 20
   animator: {fileID: 5099724163573939019}
   rb: {fileID: 7125352841507648715}
   spriteRenderer: {fileID: 7531977831306615820}
   flashDelay: 0.05
-  flashTime: 0.12
+  flashTime: 0.15
   destroyDelay: 1
   coinPrefab: {fileID: 5596487343653226643, guid: 6660655845d831243975cd95aa4b02ef, type: 3}
   coinsToDrop: 3

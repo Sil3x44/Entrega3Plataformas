@@ -39,8 +39,18 @@ public class PlayerPotionUser : MonoBehaviour
 
     private IEnumerator DamagePotionCoroutine()
     {
-        yield return new WaitForSeconds(damagePotionDuration);
+        float timer = damagePotionDuration;
+
+        while (timer > 0)
+        {
+            GameManager.Instance.ShowDamagePotionTimer(timer);
+
+            timer -= Time.deltaTime;
+
+            yield return null;
+        }
 
         GameManager.Instance.DisableDamageBoost();
+        GameManager.Instance.HideDamagePotionTimer();
     }
 }

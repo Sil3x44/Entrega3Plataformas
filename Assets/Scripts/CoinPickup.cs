@@ -3,7 +3,7 @@ using UnityEngine;
 public class CoinPickup : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 8f;
-    [SerializeField] private float collectDistance = 0.1f;
+    [SerializeField] private float collectDistance = 0.15f;
     [SerializeField] private GameObject collectEffectPrefab;
 
     private Transform player;
@@ -20,6 +20,11 @@ public class CoinPickup : MonoBehaviour
 
         if (Vector3.Distance(transform.position, player.position) <= collectDistance)
         {
+            if (collectEffectPrefab != null)
+            {
+                Instantiate(collectEffectPrefab, transform.position, Quaternion.identity);
+            }
+
             GameManager.Instance.AddCoins(1);
             Destroy(gameObject);
         }

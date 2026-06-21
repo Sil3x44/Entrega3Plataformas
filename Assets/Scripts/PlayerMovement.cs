@@ -30,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
-
+    
+    private int facingDirection = 1;
     private bool hasJumped;
 
     private void Awake()
@@ -72,10 +73,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveDirection.x > 0)
         {
+            facingDirection = 1;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (moveDirection.x < 0)
         {
+            facingDirection = -1;
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
@@ -186,6 +189,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetControlsLocked(bool value)
     {
         controlsLocked = value;
+    }
+    
+    public int GetFacingDirection()
+    {
+        return facingDirection;
     }
 
     private void OnDrawGizmos()

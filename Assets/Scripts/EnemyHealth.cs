@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] private int coinsToDrop = 0;
     [SerializeField] private float dropRadius = 0.6f;
 
+    [SerializeField] private bool isBoss;
     private int currentHealth;
     private bool isDead;
     private Color originalColor;
@@ -85,7 +86,25 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         DropCoins();
         
-        Destroy(gameObject, destroyDelay);
+        if (isBoss)
+        {
+            StartCoroutine(ShowVictoryAfterDelay());
+        }
+        else
+        {
+            Destroy(gameObject, destroyDelay);
+        }
+    }
+    
+    private IEnumerator ShowVictoryAfterDelay()
+    {
+        yield return new WaitForSeconds(destroyDelay);
+
+        VictoryMenu victoryMenu = FindFirstObjectByType<VictoryMenu>();
+
+        victoryMenu.ShowVictory();
+
+        Destroy(gameObject);
     }
 
     public bool GetIsDead()

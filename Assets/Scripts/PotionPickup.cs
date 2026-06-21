@@ -10,9 +10,15 @@ public class PotionPickup : MonoBehaviour, IInteractable
 {
     [SerializeField] private PotionType potionType;
     [SerializeField] private GameObject interactionPrompt;
+    [SerializeField] private GameObject collectEffectPrefab;
 
     public void Interact(PlayerInteractor player)
     {
+        if (collectEffectPrefab != null)
+        {
+            Instantiate(collectEffectPrefab, transform.position, Quaternion.identity);
+        }
+
         if (potionType == PotionType.Health)
         {
             GameManager.Instance.AddHealthPotion();

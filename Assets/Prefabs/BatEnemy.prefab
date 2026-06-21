@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5636576070732989007}
   - component: {fileID: 275030035352379634}
   - component: {fileID: 2315775598417638482}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BatVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974603843304498378}
   - component: {fileID: 5853831869901825038}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AlertIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,9 +216,9 @@ GameObject:
   - component: {fileID: 4684003508693245079}
   - component: {fileID: 8278963080137285137}
   - component: {fileID: 8794544772208294061}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BatEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

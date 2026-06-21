@@ -14,6 +14,7 @@ public class GameOverMenu : MonoBehaviour
 
     public void ShowGameOver()
     {
+        AudioManager.Instance.PlayGameOverMusic();
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
     }

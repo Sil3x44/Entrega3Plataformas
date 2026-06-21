@@ -4,10 +4,9 @@ public class ArrowProjectile : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float lifeTime = 2f;
-    [SerializeField] private GameObject collectEffectPrefab;
 
     private int damage;
-    private float directionX = 1f;
+    private int directionX = 1;
 
     private void Start()
     {
@@ -16,7 +15,7 @@ public class ArrowProjectile : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector2.right * directionX * moveSpeed * Time.deltaTime);
+        transform.position += Vector3.right * directionX * moveSpeed * Time.deltaTime;
     }
 
     public void SetDamage(int newDamage)
@@ -24,11 +23,15 @@ public class ArrowProjectile : MonoBehaviour
         damage = newDamage;
     }
 
-    public void SetDirection(float newDirectionX)
+    public void SetDirection(int newDirectionX)
     {
         directionX = newDirectionX;
 
-        if (directionX < 0)
+        if (directionX > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
@@ -41,7 +44,6 @@ public class ArrowProjectile : MonoBehaviour
             if (other.TryGetComponent(out IDamageable damageable))
             {
                 damageable.TakeDamage(damage);
-                Instantiate(collectEffectPrefab, transform.position, Quaternion.identity);
             }
 
             Destroy(gameObject);

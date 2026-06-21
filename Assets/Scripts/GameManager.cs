@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private InventoryUI inventoryUI;
-
     [Header("Weapon Sprites")]
     [SerializeField] private Sprite swordSprite;
     [SerializeField] private Sprite spearSprite;
@@ -24,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int healthPotionHealAmount = 2;
     [SerializeField] private float damagePotionDuration = 8f;
 
+    private InventoryUI inventoryUI;
+    
     private bool damageBoostActive;
     private bool hasSword;
     private bool hasSpear;
@@ -194,6 +194,22 @@ public class GameManager : MonoBehaviour
     public void DisableDamageBoost()
     {
         damageBoostActive = false;
+    }
+    
+    public void SetInventoryUI(InventoryUI newInventoryUI)
+    {
+        inventoryUI = newInventoryUI;
+        UpdateUI();
+    }
+
+    public void ShowDamagePotionTimer(float timeLeft)
+    {
+        inventoryUI.ShowDamagePotionTimer(timeLeft);
+    }
+
+    public void HideDamagePotionTimer()
+    {
+        inventoryUI.HideDamagePotionTimer();
     }
 
     private void UpdateUI()

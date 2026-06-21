@@ -90,7 +90,7 @@ MonoBehaviour:
   playerHealthUI: {fileID: 0}
   animator: {fileID: 6337248273155209761}
   spriteRenderer: {fileID: 4154135398298692364}
-  flashDelay: 1
+  flashDelay: 0.1
   flashTime: 0.12
   gameOverDelay: 1
 --- !u!114 &2822540237429827539
@@ -140,11 +140,13 @@ MonoBehaviour:
   bowShootPoint: {fileID: 72959408965333801}
   animator: {fileID: 6337248273155209761}
   arrowPrefab: {fileID: 8599222805522169282, guid: 773411efc007a784e80edf5830392eb1, type: 3}
+  hitEffectPrefab: {fileID: 3854471796553762487, guid: 9234ae4cca1aea747a3cfeff216707f0, type: 3}
   swordRadius: 0.7
   swordDamage: 10
   spearRadius: 1.2
   spearDamage: 8
   bowDamage: 5
+  arrowShootDelay: 0.8
   attackCooldown: 0.5
   damageDelay: 0.15
   enemyLayer:

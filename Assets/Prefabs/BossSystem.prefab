@@ -212,7 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8457891149149696901}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolPointD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3908892620268477122}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolPointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 343174577812244659}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolPointE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6450138037364327974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolPointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 8869709468190078522}
   - component: {fileID: 2612996119548828587}
   - component: {fileID: 2751813600157439929}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BossVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,9 +462,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637034087336442987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BossSystem
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -495,7 +495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7249796821003677263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolPointC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 487984102210623330}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PatrolPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2879041663418772210}
   - component: {fileID: 5459589188177553134}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AlertIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

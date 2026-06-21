@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -20,13 +21,20 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Bow")]
     [SerializeField] private int bowDamage = 5;
+    [SerializeField] private float arrowShootDelay = 0.8f;
 
     [Header("General Attack")]
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float damageDelay = 0.15f;
     [SerializeField] private LayerMask enemyLayer;
 
+    private PlayerMovement playerMovement;
     private bool canAttack = true;
+
+    private void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
     private void Update()
     {
@@ -42,21 +50,26 @@ public class PlayerCombat : MonoBehaviour
 
         animator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(damageDelay);
-
         WeaponType currentWeapon = GameManager.Instance.GetCurrentWeapon();
 
-        if (currentWeapon == WeaponType.Sword)
+        if (currentWeapon == WeaponType.Bow)
         {
-            PerformMeleeAttack(swordRadius, swordDamage);
-        }
-        else if (currentWeapon == WeaponType.Spear)
-        {
-            PerformMeleeAttack(spearRadius, spearDamage);
-        }
-        else if (currentWeapon == WeaponType.Bow)
-        {
+            yield return new WaitForSeconds(arrowShootDelay);
+
             ShootArrow();
+        }
+        else
+        {
+            yield return new WaitForSeconds(damageDelay);
+
+            if (currentWeapon == WeaponType.Sword)
+            {
+                PerformMeleeAttack(swordRadius, swordDamage);
+            }
+            else if (currentWeapon == WeaponType.Spear)
+            {
+                PerformMeleeAttack(spearRadius, spearDamage);
+            }
         }
 
         yield return new WaitForSeconds(attackCooldown);
@@ -82,18 +95,11 @@ public class PlayerCombat : MonoBehaviour
 
     private void ShootArrow()
     {
-        GameObject arrow = Instantiate(
-            arrowPrefab,
-            bowShootPoint.position,
-            bowShootPoint.rotation);
-
+        GameObject arrow = Instantiate(arrowPrefab, bowShootPoint.position, Quaternion.identity);
         ArrowProjectile projectile = arrow.GetComponent<ArrowProjectile>();
 
-        int finalDamage = GetFinalDamage(bowDamage);
-        projectile.SetDamage(finalDamage);
-
-        float directionX = transform.rotation.y == 0 ? 1f : -1f;
-        projectile.SetDirection(directionX);
+        projectile.SetDamage(GetFinalDamage(bowDamage));
+        projectile.SetDirection(playerMovement.GetFacingDirection());
     }
 
     private int GetFinalDamage(int baseDamage)
