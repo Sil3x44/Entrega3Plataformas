@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool canDoubleJump;
     [SerializeField] private bool isDashing;
+    [SerializeField] private bool controlsLocked;
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -40,6 +41,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (controlsLocked)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
+        
         ReadInput();
         FlipCharacter();
         CheckIsGrounded();
@@ -170,6 +177,11 @@ public class PlayerMovement : MonoBehaviour
     public bool GetIsDashing()
     {
         return isDashing;
+    }
+    
+    public void SetControlsLocked(bool value)
+    {
+        controlsLocked = value;
     }
 
     private void OnDrawGizmos()
