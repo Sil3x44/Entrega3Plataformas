@@ -1,23 +1,35 @@
 using UnityEngine;
 
-public class CoinPickup : MonoBehaviour, IInteractable
+public class CoinPickup : MonoBehaviour
 {
-    [SerializeField] private int coinValue = 1;
-    [SerializeField] private GameObject interactionPrompt;
+    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float collectDistance = 0.15f;
 
-    public void Interact(PlayerInteractor player)
+    private Transform player;
+    private bool isFollowingPlayer;
+
+    private void Update()
     {
-        GameManager.Instance.AddCoins(coinValue);
-        Destroy(gameObject);
+        if (!isFollowingPlayer || player == null) return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            player.position,
+            moveSpeed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, player.position) <= collectDistance)
+        {
+            GameManager.Instance.AddCoins(1);
+            Destroy(gameObject);
+        }
     }
 
-    public void ShowPrompt()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        interactionPrompt.SetActive(true);
-    }
-
-    public void HidePrompt()
-    {
-        interactionPrompt.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            player = other.transform;
+            isFollowingPlayer = true;
+        }
     }
 }

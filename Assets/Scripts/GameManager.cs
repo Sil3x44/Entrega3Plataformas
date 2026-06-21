@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum WeaponType
 {
+    None,
     Sword,
     Spear,
     Bow
@@ -13,6 +14,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private InventoryUI inventoryUI;
 
+    [Header("Weapon Sprites")]
+    [SerializeField] private Sprite swordSprite;
+    [SerializeField] private Sprite spearSprite;
+    [SerializeField] private Sprite bowSprite;
+
     private bool hasSword;
     private bool hasSpear;
     private bool hasBow;
@@ -21,7 +27,7 @@ public class GameManager : MonoBehaviour
     private int damagePotions;
     private int coins;
 
-    private WeaponType currentWeapon = WeaponType.Sword;
+    private WeaponType currentWeapon = WeaponType.None;
 
     private void Awake()
     {
@@ -60,6 +66,9 @@ public class GameManager : MonoBehaviour
         if (!HasWeapon(weaponType)) return;
 
         currentWeapon = weaponType;
+
+        FindFirstObjectByType<PlayerWeaponAnimations>().UpdateAnimationSet();
+
         UpdateUI();
     }
 
@@ -101,11 +110,21 @@ public class GameManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (inventoryUI == null) return;
-
         inventoryUI.UpdateWeaponIcons(hasSword, hasSpear, hasBow);
-        inventoryUI.UpdatePotionIcons(healthPotions, damagePotions);
-        inventoryUI.UpdateSelectedWeapon(currentWeapon);
+        inventoryUI.UpdatePotionCounts(healthPotions, damagePotions);
         inventoryUI.UpdateCoins(coins);
+
+        if (HasWeapon(currentWeapon))
+        {
+            inventoryUI.UpdateEquippedWeapon(
+                currentWeapon,
+                swordSprite,
+                spearSprite,
+                bowSprite);
+        }
+        else
+        {
+            inventoryUI.HideEquippedWeapon();
+        }
     }
 }

@@ -43,12 +43,13 @@ GameObject:
   - component: {fileID: 2822540237429827539}
   - component: {fileID: 5601625932065801045}
   - component: {fileID: 4601770693512220871}
+  - component: {fileID: 866987352132186295}
   - component: {fileID: 3334657612813616984}
   - component: {fileID: 214878001084109207}
   - component: {fileID: 6507860931388238108}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,9 +116,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   attackPoint: {fileID: 72959408965333801}
-  attackRadius: 0
-  playerBaseDamage: 0
-  playerCritDamage: 0
+  animator: {fileID: 6337248273155209761}
+  attackRadius: 0.75
+  playerBaseDamage: 10
+  attackCooldown: 0.5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &4601770693512220871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +135,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 550cbdbc11d744e4a8a1b38ecd37cccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimations
+--- !u!114 &866987352132186295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128697021361023608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11ca934fa390834fa9108d5ca9b96d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponSelector
 --- !u!114 &3334657612813616984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7792631076632770876}
+  - component: {fileID: 1080061936643667798}
   - component: {fileID: 4154135398298692364}
   - component: {fileID: 6337248273155209761}
   m_Layer: 0
@@ -248,6 +266,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 652899698043838936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1080061936643667798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321529814801902393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5a6091bb1d1c2459fdb6f61be481de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponAnimations
+  baseController: {fileID: 9100000, guid: 038ffe3f537f0584098aef6b98233ac8, type: 2}
+  swordController: {fileID: 22100000, guid: 139cc3281c922f44488557861c80feb4, type: 2}
+  spearController: {fileID: 22100000, guid: ea7b69a3258246a4590a9f76737e9ebc, type: 2}
+  bowController: {fileID: 22100000, guid: 7c40835e9743bc34eab8b6f81a474625, type: 2}
 --- !u!212 &4154135398298692364
 SpriteRenderer:
   m_ObjectHideFlags: 0

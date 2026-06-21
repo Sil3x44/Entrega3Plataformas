@@ -3,76 +3,63 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private float attackRadius;
-    [SerializeField] private int playerBaseDamage;
-    [SerializeField] private int playerCritDamage;
+    [SerializeField] private Animator animator;
 
-    private Collider2D[] targetsHit;
-    private float comboCooldown;
-    private bool hasAttackedOnce;
-    private bool hasAttackedTwice;
-    private bool isParryable;
-    
+    [Header("Attack")]
+    [SerializeField] private float attackRadius = 0.7f;
+    [SerializeField] private int playerBaseDamage = 10;
+    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private float damageDelay = 0.15f;
+    [SerializeField] private LayerMask enemyLayer;
+
+    private bool canAttack = true;
+
     private void Update()
     {
-        UpdateAttack();
+        if (Input.GetMouseButtonDown(0) && canAttack)
+        {
+            StartCoroutine(AttackCoroutine());
+        }
     }
 
-    private void UpdateAttack()
+    private IEnumerator AttackCoroutine()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!hasAttackedOnce && !hasAttackedTwice)
-            {
-                hasAttackedOnce = true;
-                //play attack1 animation with event
-            }
-            else if (hasAttackedOnce && !hasAttackedTwice)
-            {
-                hasAttackedTwice = true;
-                //play attack2 animation with event
-            }
-            else
-            {
-                hasAttackedOnce = false;
-                hasAttackedTwice = false;
-                //play attack3 animation with event
-            }
-        }
+        canAttack = false;
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            PerformParry();
-        }
+        animator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(damageDelay);
+
+        PerformAttack();
+
+        yield return new WaitForSeconds(attackCooldown);
+
+        canAttack = true;
     }
 
     private void PerformAttack()
     {
-        targetsHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius);
+        Collider2D[] targetsHit = Physics2D.OverlapCircleAll(
+            attackPoint.position,
+            attackRadius,
+            enemyLayer);
 
         foreach (Collider2D target in targetsHit)
         {
-            if (TryGetComponent(out IDamagable damage))
+            if (target.TryGetComponent(out IDamageable damageable))
             {
-                damage.TakeDamage(playerBaseDamage);
+                damageable.TakeDamage(playerBaseDamage);
             }
         }
     }
 
-    private void PerformParry()
+    private void OnDrawGizmosSelected()
     {
-        targetsHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius);
-        
-        foreach (Collider2D target in targetsHit)
-        {
-            if (TryGetComponent(out IParryable parryable) && TryGetComponent(out IDamagable damage))
-            {
-                parryable.CheckForParry(isParryable);
-                damage.TakeDamage(playerCritDamage);
-            }
-        }
+        if (attackPoint == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
-    
-    
 }

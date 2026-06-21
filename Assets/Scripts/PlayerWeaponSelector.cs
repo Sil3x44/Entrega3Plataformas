@@ -4,19 +4,43 @@ public class PlayerWeaponSelector : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetMouseButtonDown(1))
         {
-            GameManager.Instance.ChangeWeapon(WeaponType.Sword);
+            SelectNextWeapon();
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+    private void SelectNextWeapon()
+    {
+        WeaponType currentWeapon = GameManager.Instance.GetCurrentWeapon();
+
+        if (currentWeapon == WeaponType.Sword)
         {
-            GameManager.Instance.ChangeWeapon(WeaponType.Spear);
+            TrySelectInOrder(WeaponType.Spear, WeaponType.Bow, WeaponType.Sword);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (currentWeapon == WeaponType.Spear)
         {
-            GameManager.Instance.ChangeWeapon(WeaponType.Bow);
+            TrySelectInOrder(WeaponType.Bow, WeaponType.Sword, WeaponType.Spear);
+        }
+        else if (currentWeapon == WeaponType.Bow)
+        {
+            TrySelectInOrder(WeaponType.Sword, WeaponType.Spear, WeaponType.Bow);
+        }
+    }
+
+    private void TrySelectInOrder(WeaponType first, WeaponType second, WeaponType fallback)
+    {
+        if (GameManager.Instance.HasWeapon(first))
+        {
+            GameManager.Instance.ChangeWeapon(first);
+        }
+        else if (GameManager.Instance.HasWeapon(second))
+        {
+            GameManager.Instance.ChangeWeapon(second);
+        }
+        else
+        {
+            GameManager.Instance.ChangeWeapon(fallback);
         }
     }
 }
