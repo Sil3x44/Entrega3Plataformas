@@ -7,5 +7,19 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Spear_Override
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: 038ffe3f537f0584098aef6b98233ac8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 6253cf9062e1f134da1b05effee11f63, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 14d10e6451619484ba5bd27b777594f3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b0e2c78252ba28240afb90da9fe52512, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eba6e55de6ca02344905c79ff8ec0aad, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5556095efcd4175489749a6deb0c5ca6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fdeca3223a6266b48b0bc632f5f568fb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b835c565846c8d742af9779cd27d108f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1f9b4d44e27ce7c459e1747e7b8083e6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 27b644840db74704fbf1904b927217ec, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 474748eed24ae254286f14725ea644b5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c96c0c6f8083b274d8e50c06e946b49f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 815eb78092d0c524282b5873de9d7597, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d0487dc07562eb54aa4255a00ac12335, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a8c2eb5340744f347bd0bcd376895e7f, type: 2}

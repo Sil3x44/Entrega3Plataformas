@@ -9,9 +9,9 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] private float attackRadius = 0.7f;
-    [SerializeField] private int playerBaseDamage = 10;
+    [SerializeField] private int playerBaseDamage = 5;
     [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float damageDelay = 0.15f;
+    [SerializeField] private float damageDelay = 0.5f;
     [SerializeField] private LayerMask enemyLayer;
 
     private bool canAttack = true;

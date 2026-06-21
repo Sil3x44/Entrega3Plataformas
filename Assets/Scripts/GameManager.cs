@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour
     private bool hasSpear;
     private bool hasBow;
 
+    private int coins;
     private int healthPotions;
     private int damagePotions;
-    private int coins;
 
     private WeaponType currentWeapon = WeaponType.None;
+
+    private int playerCurrentHealth;
+    private int playerMaxHealth;
 
     private void Awake()
     {
@@ -42,8 +45,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void RegisterPlayerHealth(int maxHealth)
     {
+        playerMaxHealth = maxHealth;
+
+        if (playerCurrentHealth <= 0)
+        {
+            playerCurrentHealth = playerMaxHealth;
+        }
+    }
+
+    public int GetPlayerCurrentHealth()
+    {
+        return playerCurrentHealth;
+    }
+
+    public void SetPlayerCurrentHealth(int value)
+    {
+        playerCurrentHealth = value;
+    }
+
+    public void ResetRun()
+    {
+        hasSword = false;
+        hasSpear = false;
+        hasBow = false;
+
+        coins = 0;
+        healthPotions = 0;
+        damagePotions = 0;
+
+        currentWeapon = WeaponType.None;
+
+        playerCurrentHealth = playerMaxHealth;
+
         UpdateUI();
     }
 
@@ -53,10 +88,7 @@ public class GameManager : MonoBehaviour
         if (weaponType == WeaponType.Spear) hasSpear = true;
         if (weaponType == WeaponType.Bow) hasBow = true;
 
-        if (HasWeapon(weaponType))
-        {
-            currentWeapon = weaponType;
-        }
+        currentWeapon = weaponType;
 
         UpdateUI();
     }
@@ -66,9 +98,6 @@ public class GameManager : MonoBehaviour
         if (!HasWeapon(weaponType)) return;
 
         currentWeapon = weaponType;
-
-        FindFirstObjectByType<PlayerWeaponAnimations>().UpdateAnimationSet();
-
         UpdateUI();
     }
 
@@ -91,6 +120,12 @@ public class GameManager : MonoBehaviour
         return currentWeapon;
     }
 
+    public void AddCoins(int amount)
+    {
+        coins += amount;
+        UpdateUI();
+    }
+
     public void AddHealthPotion()
     {
         healthPotions++;
@@ -102,25 +137,18 @@ public class GameManager : MonoBehaviour
         damagePotions++;
         UpdateUI();
     }
-    public void AddCoins(int amount)
-    {
-        coins += amount;
-        UpdateUI();
-    }
 
     private void UpdateUI()
     {
+        if (inventoryUI == null) return;
+
         inventoryUI.UpdateWeaponIcons(hasSword, hasSpear, hasBow);
         inventoryUI.UpdatePotionCounts(healthPotions, damagePotions);
         inventoryUI.UpdateCoins(coins);
 
         if (HasWeapon(currentWeapon))
         {
-            inventoryUI.UpdateEquippedWeapon(
-                currentWeapon,
-                swordSprite,
-                spearSprite,
-                bowSprite);
+            inventoryUI.UpdateEquippedWeapon(currentWeapon, swordSprite, spearSprite, bowSprite);
         }
         else
         {
